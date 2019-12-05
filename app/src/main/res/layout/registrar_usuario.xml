@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registrar_titulo"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/sizeTitulo"
+            />
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registrar_rellene"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textBLack"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/sizeRegistrar"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_dni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/dni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_dni"
+                android:inputType="number"
+                android:maxLength="8"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_nombre"
+                android:inputType="text"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_apelido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/apellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_apellido"
+                android:inputType="text"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_telefono"
+                android:inputType="number"
+                android:maxLength="9"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_correo"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnRegistrar"
+            style="@style/btnNoBorder"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btnnuevousuario"
+            android:textSize="@dimen/sizeBtnLogin"
+            android:textColor="@color/textWhite"
+            android:background="@drawable/btn_cornerlogin"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/btnLogin"
+            style="@style/btnNoBorder"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="@string/registrar_login"
+            android:textSize="@dimen/sizeBtnLogin"
+            android:textColor="@color/textBLack"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_transparent"
+
+            />
+    </LinearLayout>
+</ScrollView>
