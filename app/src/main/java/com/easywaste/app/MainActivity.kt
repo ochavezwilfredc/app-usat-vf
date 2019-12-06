@@ -290,4 +290,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
     }
 
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+         Log.e("error", "mostrando data 2")
+
+         when(requestCode) {
+
+            ServicioProveedorRegistrarFragment.RETORNA_IMAGEN -> {
+                if (resultCode == 1) {
+                    Log.e("error", "mostrando data 1")
+                    if( ServicioProveedorRegistrarFragment.fragReferenciaDialog!=null){
+                        Log.e("error", "mostrando data 2")
+                        ServicioProveedorRegistrarFragment.fragReferenciaDialog?.imageView?.setImageURI(data?.data)
+                    }
+                }
+
+            }
+        }
+
+    }
 }

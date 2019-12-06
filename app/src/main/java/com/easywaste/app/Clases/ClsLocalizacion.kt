@@ -76,6 +76,7 @@ class ClsLocalizacion : OnMapReadyCallback, ActivityCompat.OnRequestPermissionsR
          }
 
          if(lastLatLong!=null){
+             gmap!!.clear()
              gmap!!.addMarker( MarkerOptions()
                  .position(lastLatLong!!))
              gmap!!.moveCamera(

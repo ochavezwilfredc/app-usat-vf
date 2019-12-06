@@ -174,7 +174,7 @@ class ServicioRecicladorLlegoFragment : Fragment() {
             val tiempo = Prefs.pullString("SERVICIORECICLADOR_FECHA").toLong()
             val diff = ((ahora - tiempo)/1000).toInt()
             if(diff>10*5){
-                btnAusente.visibility = View.VISIBLE
+               // btnAusente.visibility = View.VISIBLE
                 OK = false
             }
         }

@@ -1,23 +1,28 @@
 package com.easywaste.app
 
 
-import android.content.DialogInterface
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.easywaste.app.Clases.ClsLocationAdress
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import android.widget.TextView
 import android.widget.Toast
-import com.android.volley.AuthFailureError
-import com.android.volley.Request
+import androidx.core.content.PermissionChecker
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -38,6 +43,10 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
    var habilitarEdicion = false
    var cerroDialog:Int = 0
     var btnOperacion:Button?=null
+  var RETORNA_IMAGEN:Int = 101
+    var imageView:ImageView? = null
+    var PERMISO_GALERIA = 1
+    var imagenCodificada:String? = null
    override fun onCreateView(
        inflater: LayoutInflater,
        container: ViewGroup?,
@@ -49,12 +58,12 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
 
    override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
        super.onViewCreated(v, savedInstanceState)
-
        txtDireccion = v.findViewById(R.id.direccion)
-        btnOperacion = v.findViewById<Button>(R.id.btnConfirmar)
+       btnOperacion = v.findViewById<Button>(R.id.btnConfirmar)
        val btnCancelar = v.findViewById<Button>(R.id.btnCancelar)
        val bundle = arguments
        txtReferencia = v.findViewById<TextView>(R.id.referencia)
+       imageView = v.findViewById(R.id.seleccionar_imagen)
        val activity = activity as MainActivity?
 
        if (bundle != null) {
@@ -81,7 +90,29 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
            }
 
        }
+
+       imageView?.setOnClickListener{
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+               if (checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                   PermissionChecker.PERMISSION_DENIED){
+                   val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                   requestPermissions(permissions, PERMISO_GALERIA);
+               }
+               else{
+                   seleccionarImagen()
+               }
+           }
+           else{
+               seleccionarImagen()
+           }
+
+       }
    }
+    fun seleccionarImagen(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        activity!!.startActivityForResult(intent, RETORNA_IMAGEN)
+    }
     fun registrarServicio(lat:Double, long:Double, ref:String){
         val activity = activity as MainActivity?
 
@@ -92,7 +123,6 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
         params["latitud"] = lat
         params["longitud"] = long
         params["referencia"] = ref
-
 
         val parameters = JSONObject(params as Map<String, Any>)
 
@@ -151,8 +181,22 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
    }
 
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode){
+            PERMISO_GALERIA -> {
+                if (grantResults.size >0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    seleccionarImagen()
+                }
+                else{
+                    //permission from popup denied
+                    Toast.makeText(activity, "Permiso denegado", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
-   override fun onResume() {
+    override fun onResume() {
        super.onResume()
        val window = dialog?.window
        val size : Point = Point()

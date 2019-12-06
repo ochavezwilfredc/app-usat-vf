@@ -45,7 +45,7 @@ class ServicioProveedorEnCaminoFragment : Fragment() {
     var posicionProveedor:LatLng? =null
     var posicionReciclador:LatLng?= null
     var requestQueue:RequestQueue? =null
-
+    var txtLLego:TextView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,6 +67,7 @@ class ServicioProveedorEnCaminoFragment : Fragment() {
         txtRecicladorDni= view.findViewById(R.id.dni)
         txtTiempoEstimado = view.findViewById(R.id.tiempoestimado)
         cardViewInfo = view.findViewById(R.id.infoserviciomapa)
+        txtLLego = view.findViewById(R.id.txtLlego)
         cardViewInfo?.visibility = View.INVISIBLE
 
         val btnCancelar:Button = view.findViewById(R.id.btnCancelar)
@@ -128,8 +129,10 @@ class ServicioProveedorEnCaminoFragment : Fragment() {
                             txtTiempoEstimado?.text= "Llega en $tiempo_aproximado minutos"
                             cardViewInfo?.visibility = View.VISIBLE
                             buscarPosicionReciclador()
-
-                        }else if(estado == "Finalizado"){
+                        }else if(estado=="En Atencion"){
+                            txtLLego?.visibility = View.VISIBLE
+                        }
+                        else if(estado == "Finalizado"){
 
                             try {
                                 OK = false

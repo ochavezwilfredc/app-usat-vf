@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:padding="10dp"
@@ -19,18 +20,68 @@
         android:textColor="@color/textBLack"
         android:text="CONFIRMACIÓN DE SERVICIO"
         ></TextView>
+
+    <TextView
+        android:layout_marginTop="4dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"
+        android:text="AVISO IMPORTANTE"
+        ></TextView>
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:text="1.- Su reciclaje debe ser mayor a 5 kilos."
+        ></TextView>
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:text="2.- Debe estar en material de ciclaje."
+        ></TextView>
     <TextView
         android:layout_marginTop="5dp"
 
             android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:textColor="@color/textBLack"
             android:text="-"
 
         ></TextView>
+    <TextView
+        android:layout_marginTop="5dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:text="Seleccionar Imagen"
+        android:visibility="gone"
+        ></TextView>
+    <ImageView
+        android:id="@+id/seleccionar_imagen"
+        style="?android:borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/upload"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

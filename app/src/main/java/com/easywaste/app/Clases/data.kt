@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 
 data class ClsUsuarioResumen(
-    val id: Int,
+    val id:Int,
     val token: String,
     val dni: String,
     val persona: String,
@@ -32,20 +32,17 @@ data class ClsUsuarioResumen(
     }
 }
 
-class ClsServicio(val id: Int, val proveedor: String) {
-    var fecha: String = ""
-    var hora: String = ""
+ class ClsServicio(val id: Int, val proveedor:String) {
+     var fecha:String = ""
+     var hora :String = ""
+     constructor(id:Int, proveedor:String, fecha:String, hora:String) : this(id,proveedor) {
+         this.fecha = fecha
+         this.hora = hora
+     }
 
-    constructor(id: Int, proveedor: String, fecha: String, hora: String) : this(id, proveedor) {
-        this.fecha = fecha
-        this.hora = hora
-    }
-
+ }
+data class ClsServicioDireccion(val direccion: String, val posicion:LatLng) {
 }
-
-data class ClsServicioDireccion(val direccion: String, val posicion: LatLng) {
-}
-
 data class Respuesta(val outstate: Boolean, val outid: Int, val outerrornumber: Int, val outdescription: String)
 data class RespuestaWS(val estado: Int, val msg: String)
 
@@ -87,7 +84,7 @@ class Validar {
 
 class VAR {
     companion object {
-        // val url: String = "http://192.168.18.57/www/muni_api/webservice/"
+       // val url: String = "http://192.168.18.57/www/muni_api/webservice/"
         val url: String = "http://192.168.18.137/www/muni_api/webservice/"
         var ext: String = ".php"
         fun url(m: String): String {
@@ -176,72 +173,61 @@ class Prefs {
                 instance = CryptoPrefs(context, "easywaste", "EasyWaste!=?")
             }
         }
-
         fun putId(id: Int) {
             if (instance != null) {
                 instance?.put(ID, id)
             }
         }
-
         fun pullId(): Int {
             if (instance != null) {
                 return instance?.get(ID, "0")!!.toInt()
             }
             return 0
         }
-
         fun putServicioId(id: Int) {
             if (instance != null) {
                 instance?.put(SERVICIOID, id)
             }
         }
-
         fun pullServicioId(): Int {
             if (instance != null) {
                 return instance?.get(SERVICIOID, "0")!!.toInt()
             }
             return 0
         }
-
         fun putServicioRecicladorId(id: Int) {
             if (instance != null) {
                 instance?.put(SERVICIORECICLADORID, id)
             }
         }
-
         fun pullServicioRecicladorId(): Int {
             if (instance != null) {
                 return instance?.get(SERVICIORECICLADORID, "0")!!.toInt()
             }
             return 0
         }
-
         fun putDNI(dni: String) {
             if (instance != null) {
                 instance?.put(DNI, dni)
             }
         }
-
         fun putRolId(rolid: Int) {
             if (instance != null) {
                 instance?.put(ROL_ID, rolid)
             }
         }
-
         fun pullDNI(): String {
             if (instance != null) {
                 return instance?.get(DNI, "")!!
             }
             return ""
         }
-
         fun pullRolId(): Int {
             if (instance != null) {
-                return instance?.get(ROL_ID, "0")!!.toInt()
+                    return instance?.get(ROL_ID, "0")!!.toInt()
             }
             return 0
         }
-
         fun putPass(pass: String) {
             if (instance != null) {
                 instance?.put(PASS, pass)
@@ -254,7 +240,6 @@ class Prefs {
             }
             return ""
         }
-
         fun putToken(pass: String) {
             if (instance != null) {
                 instance?.put(TOKEN, pass)
@@ -267,7 +252,6 @@ class Prefs {
             }
             return ""
         }
-
         fun putString(tipo: String, s: String) {
             if (instance != null) {
                 instance?.put(tipo, s)
@@ -280,7 +264,6 @@ class Prefs {
             }
             return ""
         }
-
         fun putInt(tipo: String, s: Int) {
             if (instance != null) {
                 instance?.put(tipo, s)
@@ -293,7 +276,6 @@ class Prefs {
             }
             return 0
         }
-
         fun guardoPass(): Boolean? {
             if (pullDNI() == "") {
                 return null
@@ -302,18 +284,17 @@ class Prefs {
             }
             return false
         }
-
-        fun isLogin(): Boolean {
+        fun isLogin():Boolean{
             if (instance != null) {
-                val l = instance?.get(LOGIN, "")
-                if (l == "1") {
+                val l =instance?.get(LOGIN,"")
+                if (l == "1"){
                     return true
                 }
             }
             return false
         }
 
-        fun destroy() {
+        fun destroy(){
             if (instance != null) {
                 instance?.put(LOGIN, "")
             }
