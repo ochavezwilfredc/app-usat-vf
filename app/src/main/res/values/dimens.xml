@@ -10,4 +10,6 @@
     <dimen name="sizeRegistrar">15sp</dimen>
     <dimen name="sizeLoginRelleno">14sp</dimen>
     <dimen name="sizeTitulo">20sp</dimen>
+    <dimen name="marginInputsRegistrar">5dp</dimen>
+
 </resources>

@@ -147,7 +147,7 @@ class ServicioRecicladorSolicitudesFragment : Fragment() {
 
 
                     }else{
-                        Toast.makeText(context,  response.getString("mensaje"), Toast.LENGTH_SHORT).show()
+                   //     Toast.makeText(context,  response.getString("mensaje"), Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -157,7 +157,7 @@ class ServicioRecicladorSolicitudesFragment : Fragment() {
                     val nr = it.networkResponse
                     val r = String(nr.data)
                     val response=  JSONObject(r)
-                    Toast.makeText(context,  response.getString("mensaje"), Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context,  response.getString("mensaje"), Toast.LENGTH_SHORT).show()
                 }catch (ex:Exception){
                     Toast.makeText(context,  "Error de conexión", Toast.LENGTH_SHORT).show()
                 }

@@ -43,7 +43,7 @@ class ServicioProveedorReferenciaDialog: DialogFragment() {
    var habilitarEdicion = false
    var cerroDialog:Int = 0
     var btnOperacion:Button?=null
-  var RETORNA_IMAGEN:Int = 101
+    var RETORNA_IMAGEN:Int = 101
     var imageView:ImageView? = null
     var PERMISO_GALERIA = 1
     var imagenCodificada:String? = null

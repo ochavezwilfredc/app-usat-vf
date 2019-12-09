@@ -20,9 +20,13 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     var toggle:ActionBarDrawerToggle? = null
     var  drawerLayout: DrawerLayout? = null
+    var cantPintrash:TextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -82,6 +87,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if(rolid==3){
             //PROVEEDOR
             menu.findItem(R.id.nav_servicio).setVisible(true)
+            val contPintrash:CardView = headerView.findViewById(R.id.contenedorPintrash)
+            contPintrash.visibility = View.VISIBLE
+
+            cantPintrash =  headerView.findViewById(R.id.cantPintrash)
+            buscarPintrash()
+            val mainHandler = Handler(Looper.getMainLooper())
+            mainHandler.post(object : Runnable {
+                override fun run() {
+                        try {
+                            buscarPintrash()
+                            mainHandler.postDelayed(this, 5000)
+                        }catch (ex:Exception){
+
+                        }
+
+                }
+            })
+
         }else if(rolid==2){
             //RECICLADOR
             val estadoReciclador : NiceSpinner = headerView.findViewById(R.id.estado_reciclador)
@@ -106,6 +129,61 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
 
+    }
+    fun buscarPintrash(){
+        //  cantPintrash?.visibility = View.INVISIBLE
+        val params = HashMap<String,Any>()
+        params["proveedor_id"] =  Prefs.pullId()
+        val parameters = JSONObject(params as Map<String, Any>)
+
+        val request : JsonObjectRequest = object : JsonObjectRequest(
+            Method.POST, VAR.url("proveedor_pintrash"),parameters,
+            Response.Listener { response ->
+
+                if(response!=null){
+
+                    try {
+                        cantPintrash?.visibility = View.VISIBLE
+
+                        if(response.getInt("estado") == 200){
+
+                            cantPintrash?.setText( response.getInt("datos").toString()+ " pintrash")
+
+                        }else{
+                            cantPintrash?.setText("0 pintrash")
+
+                        }
+                    }catch (ex:Exception){
+                        cantPintrash?.setText("-")
+                        ex.printStackTrace()
+                        Log.e("error", ex.message.toString())
+                    }
+                }
+
+            },
+            Response.ErrorListener{
+                cantPintrash?.visibility = View.INVISIBLE
+                try {
+                    cantPintrash?.setText("-")
+                    val nr = it.networkResponse
+                    val r = String(nr.data)
+                    val response=  JSONObject(r)
+                    Toast.makeText(this,  response.getString("mensaje"), Toast.LENGTH_SHORT).show()
+                }catch (ex: Exception){
+                    ex.printStackTrace()
+                    Toast.makeText(this,  "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+
+            }) {
+            override fun getHeaders(): Map<String, String> {
+                var params: MutableMap<String, String> =HashMap()
+                params["TOKEN"] =  Prefs.pullToken()
+                return params
+            }
+        }
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(request)
     }
 
     fun actualizarEstadoReciclador(parent: NiceSpinner, update:Boolean = false){
@@ -229,7 +307,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
 
             R.id.nav_cuenta -> {
-
+                val frag = PerfilPersonaFragment()
+                cambiarFragment(frag)
             }
             R.id.nav_servicio -> {
                 if(Prefs.pullServicioId() == 0){
@@ -300,10 +379,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ServicioProveedorRegistrarFragment.RETORNA_IMAGEN -> {
                 if (resultCode == 1) {
                     Log.e("error", "mostrando data 1")
+                    /*
                     if( ServicioProveedorRegistrarFragment.fragReferenciaDialog!=null){
                         Log.e("error", "mostrando data 2")
                         ServicioProveedorRegistrarFragment.fragReferenciaDialog?.imageView?.setImageURI(data?.data)
                     }
+
+                     */
                 }
 
             }

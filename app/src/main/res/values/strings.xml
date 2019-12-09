@@ -40,19 +40,24 @@
     <string name="login_accederolvide">Olvidé mi contraseña</string>
 
     <string name="registrar_titulo">Registro de Usuario</string>
-    <string name="registrar_rellene">Complete los siguientes campos requeridos.</string>
+    <string name="registrar_rellene">Complete los siguientes campos.</string>
     <string name="registrar_login">Ya Estoy registrado</string>
 
     <string name="login_rellene">Ingrese su correo electrónico y contraseña.</string>
     <string name="hint_dni">DNI</string>
     <string name="hint_nombre">Nombre</string>
+    <string name="hint_direccion">Dirección</string>
+
     <string name="hint_referencia">Referencia</string>
 
-    <string name="hint_apellido">Apellido</string>
+    <string name="hint_apellidopaterno">Apellido Paterno</string>
+    <string name="hint_apellidomaterno">Apellido Materno</string>
     <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_fechanacimiento">Fecha Nacimiento</string>
+
     <string name="hint_codigoregistro">Código Registro</string>
 
-    <string name="hint_telefono">Teléfono</string>
+    <string name="hint_telefono">Celular</string>
     <string name="hint_password">Contraseña</string>
     <string name="btn_registrar">Registrar</string>
 

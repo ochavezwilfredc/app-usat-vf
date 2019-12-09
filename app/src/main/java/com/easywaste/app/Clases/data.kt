@@ -2,6 +2,7 @@ package com.easywaste.app.Clases
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.util.Patterns
 import android.widget.EditText
 import com.andreacioccarelli.cryptoprefs.CryptoPrefs
@@ -10,6 +11,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.tapadoo.alerter.Alerter
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.HashMap
 
 
 data class ClsUsuarioResumen(
@@ -42,6 +48,73 @@ data class ClsUsuarioResumen(
 
  }
 data class ClsServicioDireccion(val direccion: String, val posicion:LatLng) {
+}
+
+data class ClsZona(val id: Int, val nombre:String) {
+}
+class ClsPersona(val id: Int, val rolid:Int, val dni:String, val apellido_paterno:String,val apellido_materno:String,
+                 val nombre:String, val sexo:String,val celular:String, val direccion: String, val correo:String, val fecha_nacimiento: String) {
+
+    var zonaid:Int? = null
+    var cambio_pass:Int? =null
+    var pass:String?= null
+    constructor( id: Int,  rolid:Int, dni:String, apellido_paterno:String, apellido_materno:String,
+                 nombre:String,  sexo:String, celular:String,  direccion: String,  correo:String ,
+                 fecha_nacimiento:String, zona:Int) : this(id,rolid, dni, apellido_paterno, apellido_materno,
+                    nombre, sexo, celular, direccion, correo, fecha_nacimiento) {
+        this.zonaid = zona
+
+    }
+
+    constructor( id: Int,  rolid:Int, dni:String, apellido_paterno:String, apellido_materno:String,
+                 nombre:String,  sexo:String, celular:String,  direccion: String,  correo:String , fecha_nacimiento:String,
+                 cambio_pass:Int, pass:String) : this(id,rolid, dni, apellido_paterno, apellido_materno,
+        nombre, sexo, celular,  direccion, correo, fecha_nacimiento) {
+        this.cambio_pass = cambio_pass
+        this.pass = pass
+    }
+
+
+    fun registrarProveedor():HashMap<String,Any?>{
+        val params = HashMap<String,Any?>()
+        params["operation"] = "Nuevo"
+        params["rol_id"] = this.rolid
+        params["dni"] = this.dni
+        params["nombres"] = this.nombre
+        params["ap_paterno"] = this.apellido_paterno
+        params["ap_materno"] = this.apellido_materno
+        params["sexo"] = this.sexo
+        params["fn"] = this.fecha_nacimiento
+        params["celular"] = this.celular
+        params["direccion"] = this.direccion
+        params["correo"] = this.correo
+        params["estado"] = "A"
+        params["zona_id"] = this.zonaid
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val fecha_registro = formatter.format(Calendar.getInstance().time)
+        params["fecha_registro"] = fecha_registro
+        return params
+    }
+    fun actualizarDatos():HashMap<String,Any?>{
+        val params = HashMap<String,Any?>()
+        params["id"] = this.id
+        params["rol_id"] = this.rolid
+        params["dni"] = this.dni
+        params["nombres"] = this.nombre
+        params["ap_paterno"] = this.apellido_paterno
+        params["ap_materno"] = this.apellido_materno
+        params["sexo"] = this.sexo
+        params["fn"] = this.fecha_nacimiento
+        params["celular"] = this.celular
+        params["direccion"] = this.direccion
+        params["correo"] = this.correo
+        params["cambiar_password"] = this.cambio_pass
+        params["password"] = this.pass
+
+        return params
+    }
+
+
 }
 data class Respuesta(val outstate: Boolean, val outid: Int, val outerrornumber: Int, val outdescription: String)
 data class RespuestaWS(val estado: Int, val msg: String)
@@ -85,7 +158,7 @@ class Validar {
 class VAR {
     companion object {
        // val url: String = "http://192.168.18.57/www/muni_api/webservice/"
-        val url: String = "http://192.168.18.137/www/muni_api/webservice/"
+        val url: String = "http://192.168.1.133/www/muni_api/webservice/"
         var ext: String = ".php"
         fun url(m: String): String {
             return url + m + ext

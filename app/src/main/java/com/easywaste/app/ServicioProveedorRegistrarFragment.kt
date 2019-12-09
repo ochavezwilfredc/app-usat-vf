@@ -13,6 +13,7 @@ import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import com.easywaste.app.Clases.AlertaMensaje
 import com.easywaste.app.Clases.ClsLocalizacion
+import java.lang.Exception
 
 class ServicioProveedorRegistrarFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class ServicioProveedorRegistrarFragment : Fragment() {
 
     companion object{
         val RETORNA_IMAGEN:Int = 102
-        var fragReferenciaDialog:ServicioProveedorReferenciaDialog?= null
+      //  var fragReferenciaDialog:ServicioProveedorReferenciaDialog?= null
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +51,10 @@ class ServicioProveedorRegistrarFragment : Fragment() {
                 bs.putDouble("lat", ClsLocalizacion.lastLatLong!!.latitude)
                 bs.putDouble("long", ClsLocalizacion.lastLatLong!!.longitude)
             }
-            fragReferenciaDialog = ServicioProveedorReferenciaDialog()
-            fragReferenciaDialog?.arguments = bs
-            fragReferenciaDialog?.setTargetFragment(this, FRAGMENTO_AGREGAR)
-            fragReferenciaDialog?.show(fragmentManager!!, "dialogfrag")
+            val fragReferenciaDialog = ServicioProveedorReferenciaDialog()
+            fragReferenciaDialog.arguments = bs
+            fragReferenciaDialog.setTargetFragment(this, FRAGMENTO_AGREGAR)
+            fragReferenciaDialog.show(fragmentManager!!, "dialogfrag")
         }
         return view
     }
@@ -61,10 +62,14 @@ class ServicioProveedorRegistrarFragment : Fragment() {
         when(requestCode){
            FRAGMENTO_AGREGAR->{
                 if (resultCode == 1) {
-                    fragmentManager?.popBackStack()
+                    try {
+                        fragmentManager?.popBackStack()
+                    }catch (ex:Exception){
+
+                    }
                     AlertaMensaje.mostrarInfo(activity!!,"Petición de servicio registrada")
                 }
-                fragReferenciaDialog =null
+               // fragReferenciaDialog =null
             }
 
             else->{

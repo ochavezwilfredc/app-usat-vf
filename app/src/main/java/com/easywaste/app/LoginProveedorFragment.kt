@@ -80,6 +80,7 @@ class LoginProveedorFragment : Fragment(){
             btnRegistrar.isEnabled = false
             val fragmentTransaction = fragmentManager?.beginTransaction()
             fragmentTransaction?.replace(R.id.fragmento, RegistrarFragment())
+            fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
             btnRegistrar.isEnabled = true
         }

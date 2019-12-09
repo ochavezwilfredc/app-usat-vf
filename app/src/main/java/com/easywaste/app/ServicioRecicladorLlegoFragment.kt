@@ -60,7 +60,11 @@ class ServicioRecicladorLlegoFragment : Fragment() {
             parent!!.dibujarRuta(ClsLocalizacion.lastLatLong!!, servicio_direccion.posicion, null)
         }catch (ex:Exception){
             Toast.makeText(context,  "Error al mostrar la ruta, intente nuevamente.", Toast.LENGTH_SHORT).show()
-            fragmentManager?.popBackStackImmediate()
+            try{
+                fragmentManager?.popBackStackImmediate()
+            }catch(ex:Exception){
+
+            }
         }
 
         btnLlego.setOnClickListener {
