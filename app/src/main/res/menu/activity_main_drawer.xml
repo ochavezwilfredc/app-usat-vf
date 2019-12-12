@@ -16,6 +16,12 @@
             android:icon="@drawable/service"
             android:visible="false"
             android:title="@string/menu_servicio"/>
+
+        <item
+            android:id="@+id/nav_informacion"
+            android:icon="@drawable/info"
+            android:visible="true"
+            android:title="Información"/>
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"

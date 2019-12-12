@@ -158,12 +158,14 @@ class Validar {
 class VAR {
     companion object {
        // val url: String = "http://192.168.18.57/www/muni_api/webservice/"
-        val url: String = "http://192.168.1.133/www/muni_api/webservice/"
+        val url: String = "http://192.168.1.133/www/"
         var ext: String = ".php"
         fun url(m: String): String {
-            return url + m + ext
+            return url + "muni_api/webservice/"+ m + ext
         }
-
+        fun urlInformacion(): String {
+            return url + "muni_web/Vista/sensibilizacion_info.php"
+        }
         fun LeerRespuesta(s: String): RespuestaWS? {
 
             try {

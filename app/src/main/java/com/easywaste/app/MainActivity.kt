@@ -20,6 +20,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -310,6 +311,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val frag = PerfilPersonaFragment()
                 cambiarFragment(frag)
             }
+
+            R.id.nav_informacion->{
+                Prefs.getInstance(this)
+                val url = String.format(VAR.urlInformacion() + "?persona=%s",Prefs.pullId())
+                Log.e("url", url)
+                val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+
             R.id.nav_servicio -> {
                 if(Prefs.pullServicioId() == 0){
                     val frag = ServicioProveedorRegistrarFragment()
